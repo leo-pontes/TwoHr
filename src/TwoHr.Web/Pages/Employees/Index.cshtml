@@ -1,0 +1,28 @@
+﻿@page
+@using TwoHr.Localization
+@using TwoHr.Web.Pages.Employees
+@using Microsoft.Extensions.Localization
+@model IndexModel
+@inject IStringLocalizer<TwoHrResource> L
+@section scripts
+{
+    <abp-script src="/Pages/Employees/Index.js" />    
+}
+<abp-card>        
+    <abp-card-header>        
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title><h2>@L["Employees"]</h2></abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NewEmployeeButton"
+                        text="@L["NewEmployee"].Value"
+                        icon="plus"
+                        button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="EmployeesTable"></abp-table>
+    </abp-card-body>
+</abp-card>

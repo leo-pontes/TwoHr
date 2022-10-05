@@ -1,0 +1,38 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TwoHr.Localization
+@using Volo.Abp.Users
+@model TwoHr.Web.Pages.IndexModel
+@inject IHtmlLocalizer<TwoHrResource> L
+@inject ICurrentUser CurrentUser
+@section styles {
+<abp-style src="/Pages/Index.css" />
+}
+@section scripts {    
+    <abp-script src="/Pages/Index.js" />
+}
+<div class="container">
+    <div class="p-5 text-center">        
+        <h1>@L["LongWelcomeMessage"]</h1>
+
+        @if (!CurrentUser.IsAuthenticated)
+        {
+            <a abp-button="Primary" href="~/Account/Login"><i class="fa fa-sign-in"></i> @L["Login"]</a>
+        }
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-auto text-center">
+                    <img src="https://abp.io/assets/png/mastering-abp-framework.webp" style="max-width: 400px;" class="w-100 mb-5 my-md-3">
+                </div>
+                <div class="col-md d-flex align-items-center">
+                    <div class="pe-0 pe-md-4">
+                        <small class="text-uppercase text-muted">Teste Desenvolvido Por:</small>
+                        <h2 class="mb-4">Leonardo Pontes</h2>                                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

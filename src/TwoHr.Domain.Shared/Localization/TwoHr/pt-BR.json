@@ -1,0 +1,26 @@
+{
+  "culture": "pt-BR",
+  "texts": {
+    "Menu:Home": "Principal",
+    "Menu:Hr": "Recursos Humanos",
+    "Welcome": "Seja bem-vindo!",
+    "LongWelcomeMessage": "Bem-vindo a esta aplicação Two Recursos Humanos",
+    "Employees": "Funcionários",
+    "Actions": "Ações",
+    "Close": "Fechar",
+    "Delete": "Excluir",
+    "Edit": "Editar",
+    "Update": "Editar",
+    "PublishDate": "Data de Publicação",
+    "NewEmployee": "Novo Funcionário",
+    "Name": "Nome",
+    "BirthDate": "Data de Nascimento",
+    "Active": "Ativo",
+    "Salary": "Salário",
+    "CreationTime": "Data de Criação",
+    "AreYouSure": "Tem certeza?",
+    "AreYouSureToDelete": "Tem certeza que você quer deletar este item?",
+    "EmployeeDeletionConfirmationMessage": "Tem certeza que deseja excluir o funcionário '{0}'?",
+    "SuccessfullyDeleted": "Excluído com Sucesso!"
+  }
+}
