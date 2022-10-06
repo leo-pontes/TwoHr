@@ -21,6 +21,11 @@
     "AreYouSure": "Tem certeza?",
     "AreYouSureToDelete": "Tem certeza que você quer deletar este item?",
     "EmployeeDeletionConfirmationMessage": "Tem certeza que deseja excluir o funcionário '{0}'?",
-    "SuccessfullyDeleted": "Excluído com Sucesso!"
+    "SuccessfullyDeleted": "Excluído com Sucesso!",
+    "Permission:TwoHr": "Recursos Humanos",
+    "Permission:Employees": "Gestão de funcionários",
+    "Permission:Employees.Create": "Criando novo funcionário",
+    "Permission:Employees.Edit": "Editando funcionário",
+    "Permission:Employees.Delete": "Excluindo funcionário"
   }
 }

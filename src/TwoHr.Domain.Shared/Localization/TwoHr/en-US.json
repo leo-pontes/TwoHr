@@ -21,6 +21,11 @@
     "AreYouSure": "Are you sure?",
     "AreYouSureToDelete": "Are you sure you want to delete this item?",
     "EmployeeDeletionConfirmationMessage": "Are you sure to delete the employee '{0}'?",
-    "SuccessfullyDeleted": "Successfully deleted!"
+    "SuccessfullyDeleted": "Successfully deleted!",
+    "Permission:TwoHr": "Human Resources",
+    "Permission:Employees": "Employees Management",
+    "Permission:Employees.Create": "Creating new employee",
+    "Permission:Employees.Edit": "Editing the employee",
+    "Permission:Employees.Delete": "Deleting the employee"
   }
 }
