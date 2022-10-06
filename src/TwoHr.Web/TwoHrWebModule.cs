@@ -38,6 +38,8 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.MultiTenancy;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using TwoHr.Permissions;
 
 namespace TwoHr.Web;
 
@@ -97,6 +99,13 @@ public class TwoHrWebModule : AbpModule
         ConfigureSwaggerServices(context.Services);
 
         Configure<AbpMultiTenancyOptions>(options => options.IsEnabled = false);
+
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AuthorizePage("/Employees/Index", TwoHrPermissions.Employees.Default);
+            options.Conventions.AuthorizePage("/Employees/CreateModal", TwoHrPermissions.Employees.Create);
+            options.Conventions.AuthorizePage("/Employees/EditModal", TwoHrPermissions.Employees.Edit);
+        });
     }
     
     private void ConfigureAuthentication(ServiceConfigurationContext context)

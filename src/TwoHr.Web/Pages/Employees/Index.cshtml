@@ -1,9 +1,12 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization
 @using TwoHr.Localization
+@using TwoHr.Permissions
 @using TwoHr.Web.Pages.Employees
 @using Microsoft.Extensions.Localization
 @model IndexModel
 @inject IStringLocalizer<TwoHrResource> L
+@inject IAuthorizationService AuthorizationService
 @section scripts
 {
     <abp-script src="/Pages/Employees/Index.js" />    
@@ -15,10 +18,13 @@
                 <abp-card-title><h2>@L["Employees"]</h2></abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-                <abp-button id="NewEmployeeButton"
-                        text="@L["NewEmployee"].Value"
-                        icon="plus"
-                        button-type="Primary" />
+                @if (await AuthorizationService.IsGrantedAsync(TwoHrPermissions.Employees.Create))
+                {
+                    <abp-button id="NewEmployeeButton"
+                            text="@L["NewEmployee"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+                }
             </abp-column>
         </abp-row>
     </abp-card-header>
