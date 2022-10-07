@@ -10,9 +10,9 @@ namespace TwoHr.Employees
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeService(IEmployeeRepository authorRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository)
         {
-            _employeeRepository = authorRepository;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task<Employee> CreateAsync([NotNull] string name, bool active, DateTime birthDate, double salary)

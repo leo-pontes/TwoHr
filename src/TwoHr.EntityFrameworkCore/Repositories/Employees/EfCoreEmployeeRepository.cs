@@ -19,14 +19,14 @@ namespace TwoHr.Employees
         public async Task<Employee> FindByNameAsync(string name)
         {
             var dbSet = await GetDbSetAsync();
-            return await dbSet.FirstOrDefaultAsync(author => author.Name == name);
+            return await dbSet.FirstOrDefaultAsync(x => x.Name == name);
         }
 
         public async Task<List<Employee>> GetListAsync(int skipCount, int maxResultCount, string sorting, string filter = null)
         {
             var dbSet = await GetDbSetAsync();
 
-            return await dbSet.WhereIf(!filter.IsNullOrWhiteSpace(), author => author.Name.Contains(filter))
+            return await dbSet.WhereIf(!filter.IsNullOrWhiteSpace(), x => x.Name.Contains(filter))
                 .OrderBy<Employee>(sorting)
                 .Skip(skipCount)
                 .Take(maxResultCount)

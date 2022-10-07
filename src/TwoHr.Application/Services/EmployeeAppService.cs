@@ -23,8 +23,8 @@ namespace TwoHr.Employees
 
         public async Task<EmployeeDto> GetAsync(Guid id)
         {
-            var author = await _repository.GetAsync(id);
-            return ObjectMapper.Map<Employee, EmployeeDto>(author);
+            var employee = await _repository.GetAsync(id);
+            return ObjectMapper.Map<Employee, EmployeeDto>(employee);
         }
 
         public async Task<PagedResultDto<EmployeeDto>> GetListAsync(EmployeeGetListDto input)
