@@ -1,4 +1,5 @@
 ﻿using System;
+using TwoHr.DTOs.Employees;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 

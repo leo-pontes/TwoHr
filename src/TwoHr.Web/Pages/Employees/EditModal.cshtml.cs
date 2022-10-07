@@ -14,22 +14,22 @@ namespace TwoHr.Web.Pages.Employees
         [BindProperty]
         public EmployeeCreateUpdateDto Employee { get; set; }
 
-        private readonly IEmployeeService _employeeService;
+        private readonly IEmployeeAppService _employeeAppService;
 
-        public EditModalModel(IEmployeeService employeeService)
+        public EditModalModel(IEmployeeAppService employeeAppService)
         {
-            _employeeService = employeeService;
+            _employeeAppService = employeeAppService;
         }
 
         public async Task OnGetAsync()
         {
-            var employeeDto = await _employeeService.GetAsync(Id);
+            var employeeDto = await _employeeAppService.GetAsync(Id);
             Employee = ObjectMapper.Map<EmployeeDto, EmployeeCreateUpdateDto>(employeeDto);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _employeeService.UpdateAsync(Id, Employee);
+            await _employeeAppService.UpdateAsync(Id, Employee);
             return NoContent();
         }
     }

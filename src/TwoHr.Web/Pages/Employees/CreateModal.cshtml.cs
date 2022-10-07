@@ -9,11 +9,11 @@ namespace TwoHr.Web.Pages.Employees
         [BindProperty]
         public EmployeeCreateUpdateDto Employee { get; set; }
 
-        private readonly IEmployeeService _employeeService;
+        private readonly IEmployeeAppService _employeeAppService;
 
-        public CreateModalModel(IEmployeeService employeeService)
+        public CreateModalModel(IEmployeeAppService employeeAppService)
         {
-            _employeeService = employeeService;
+            _employeeAppService = employeeAppService;
         }
 
         public void OnGet()
@@ -23,7 +23,7 @@ namespace TwoHr.Web.Pages.Employees
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _employeeService.CreateAsync(Employee);
+            await _employeeAppService.CreateAsync(Employee);
             return NoContent();
         }
     }

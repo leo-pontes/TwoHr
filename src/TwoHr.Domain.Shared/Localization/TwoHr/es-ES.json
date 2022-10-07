@@ -21,6 +21,15 @@
     "AreYouSure": "¿Está seguro?",
     "AreYouSureToDelete": "¿Está seguro de que desea eliminar este elemento?",
     "EmployeeDeletionConfirmationMessage": "¿Está seguro de que desea eliminar al empleado '{0}'?",
-    "SuccessfullyDeleted": "¡Eliminado con éxito!"
+    "SuccessfullyDeleted": "¡Eliminado con éxito!",
+    "Permission:TwoHr": "Recursos Humanos",
+    "Permission:Employees": "Gestión de empleados",
+    "Permission:Employees.Create": "Creando nuevo empleado",
+    "Permission:Employees.Edit": "Editando empleado",
+    "Permission:Employees.Delete": "Eliminando empleado",
+    "TwoHr:ErrorEmployeeAlreadyExist": "El nombre del empleado ya existe.",
+    "TwoHr:ErrorEmployeeNameInvalid": "El nombre del empleado no es válido.",
+    "TwoHr:ErrorEmployeeBirthDateInvalid": "La fecha de nacimiento del empleado no es válida.",
+    "TwoHr:ErrorEmployeeSalaryInvalid": "El salario del empleado no es válido."
   }
 }
