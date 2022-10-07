@@ -19,12 +19,14 @@ $(function () {
                             [
                                 {
                                     text: l('Edit'),
+                                    visible: abp.auth.isGranted('TwoHr.Employees.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }
                                 },
                                 {
                                     text: l('Delete'),
+                                    visible: abp.auth.isGranted('TwoHr.Employees.Delete'),
                                     confirmMessage: function (data) {
                                         return l('EmployeeDeletionConfirmationMessage', data.record.name);
                                     },
