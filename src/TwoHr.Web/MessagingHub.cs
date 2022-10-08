@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Volo.Abp.AspNetCore.SignalR;
 using Volo.Abp.Identity;
+using Volo.Abp.Auditing;
 
 namespace TwoHr.Web
 {
     [Authorize]
+    [DisableAuditing]
     [HubRoute("/my-messaging-hub")]
     public class MessagingHub : AbpHub
     {

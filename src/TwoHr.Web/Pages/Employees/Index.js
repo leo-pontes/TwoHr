@@ -15,6 +15,10 @@ $(function () {
         return console.error(err.toString());
     });
 
+    var servicoGet = twoHr.employees.employee.getListFromDb;
+    if (window.location.href.substr(-2) === "55")
+        servicoGet = twoHr.employees.employee.getList;    
+
     var dataTable = $('#EmployeesTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
@@ -22,7 +26,7 @@ $(function () {
             order: [[1, "asc"]],
             searching: false,
             scrollX: true,
-            ajax: abp.libs.datatables.createAjax(twoHr.employees.employee.getList),
+            ajax: abp.libs.datatables.createAjax(servicoGet),
             columnDefs: [
                 {
                     title: l('Actions'),
@@ -100,7 +104,7 @@ $(function () {
     );
 
     createModal.onResult(function () {
-        //dataTable.ajax.reload();
+        dataTable.ajax.reload();
         
         connection.invoke("SendMessage", $('#Employee_Name').val(), l('WellcomeEmployee'))
             .then(function () {

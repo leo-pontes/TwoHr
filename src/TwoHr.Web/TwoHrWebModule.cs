@@ -240,7 +240,7 @@ public class TwoHrWebModule : AbpModule
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "TwoHr API");
         });
         app.UseAuditing();
-        app.UseAbpSerilogEnrichers();        
+        app.UseAbpSerilogEnrichers();          
 
         app.UseConfiguredEndpoints();
     }
