@@ -4,11 +4,13 @@
 @using TwoHr.Permissions
 @using TwoHr.Web.Pages.Employees
 @using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Packages.SignalR
 @model IndexModel
 @inject IStringLocalizer<TwoHrResource> L
 @inject IAuthorizationService AuthorizationService
 @section scripts
 {
+    <abp-script type="typeof(SignalRBrowserScriptContributor)" />
     <abp-script src="/Pages/Employees/Index.js" />    
 }
 <abp-card>        
@@ -30,5 +32,5 @@
     </abp-card-header>
     <abp-card-body>
         <abp-table striped-rows="true" id="EmployeesTable"></abp-table>
-    </abp-card-body>
+    </abp-card-body>       
 </abp-card>

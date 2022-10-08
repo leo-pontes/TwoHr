@@ -1,45 +1,40 @@
-using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TwoHr.EntityFrameworkCore;
-using TwoHr.Localization;
-using TwoHr.MultiTenancy;
-using TwoHr.Web.Menus;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
+using System.IO;
+using TwoHr.EntityFrameworkCore;
+using TwoHr.Localization;
+using TwoHr.Permissions;
+using TwoHr.Web.Menus;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Localization;
-using Volo.Abp.AspNetCore.Mvc.UI;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
-using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
+using Volo.Abp.AspNetCore.SignalR;
+using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement.Web;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Web;
-using Volo.Abp.UI.Navigation.Urls;
-using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
+using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.MultiTenancy;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using TwoHr.Permissions;
 
 namespace TwoHr.Web;
 
@@ -54,8 +49,8 @@ namespace TwoHr.Web;
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpTenantManagementWebModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
-    )]
+    typeof(AbpSwashbuckleModule),
+    typeof(AbpAspNetCoreSignalRModule))]
 public class TwoHrWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -88,6 +83,7 @@ public class TwoHrWebModule : AbpModule
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
 
+        ConfigureMultiTenancy();
         ConfigureAuthentication(context);
         ConfigureUrls(configuration);
         ConfigureBundles();
@@ -96,10 +92,13 @@ public class TwoHrWebModule : AbpModule
         ConfigureLocalizationServices();
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
-        ConfigureSwaggerServices(context.Services);
+        ConfigureSwaggerServices(context.Services);       
+        ConfigureRazorPages();
+        ConfigureAuditLogging();
+    }
 
-        Configure<AbpMultiTenancyOptions>(options => options.IsEnabled = false);
-
+    private void ConfigureRazorPages()
+    {
         Configure<RazorPagesOptions>(options =>
         {
             options.Conventions.AuthorizePage("/Employees/Index", TwoHrPermissions.Employees.Default);
@@ -107,7 +106,21 @@ public class TwoHrWebModule : AbpModule
             options.Conventions.AuthorizePage("/Employees/EditModal", TwoHrPermissions.Employees.Edit);
         });
     }
-    
+
+    private void ConfigureMultiTenancy()
+    {
+        Configure<AbpMultiTenancyOptions>(options => options.IsEnabled = false);
+    }
+
+    private void ConfigureAuditLogging()
+    {
+        Configure<AbpAuditingOptions>(options =>
+        {
+            options.IsEnabled = true;
+            options.EntityHistorySelectors.AddAllEntities();
+        });
+    }
+
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
@@ -217,12 +230,7 @@ public class TwoHrWebModule : AbpModule
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();
-        app.UseAbpOpenIddictValidation();
-
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            app.UseMultiTenancy();
-        }
+        app.UseAbpOpenIddictValidation();     
 
         app.UseUnitOfWork();
         app.UseAuthorization();
@@ -232,7 +240,8 @@ public class TwoHrWebModule : AbpModule
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "TwoHr API");
         });
         app.UseAuditing();
-        app.UseAbpSerilogEnrichers();
+        app.UseAbpSerilogEnrichers();        
+
         app.UseConfiguredEndpoints();
     }
 }

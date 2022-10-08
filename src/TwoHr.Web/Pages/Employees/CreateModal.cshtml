@@ -3,11 +3,13 @@
 @using TwoHr.Web.Pages.Employees
 @using Microsoft.Extensions.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Volo.Abp.AspNetCore.Mvc.UI.Packages.SignalR
 @model CreateModalModel
 @inject IStringLocalizer<TwoHrResource> L
 @{
     Layout = null;
 }
+
 <abp-dynamic-form abp-model="Employee" asp-page="/Employees/CreateModal">
     <abp-modal>
         <abp-modal-header title="@L["NewEmployee"].Value"></abp-modal-header>

@@ -22,6 +22,7 @@
     "AreYouSureToDelete": "Are you sure you want to delete this item?",
     "EmployeeDeletionConfirmationMessage": "Are you sure to delete the employee '{0}'?",
     "SuccessfullyDeleted": "Successfully deleted!",
+    "WellcomeEmployee": "Welcome the new employee:",
     "Permission:TwoHr": "Human Resources",
     "Permission:Employees": "Employees Management",
     "Permission:Employees.Create": "Creating new employee",

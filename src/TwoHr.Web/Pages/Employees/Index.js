@@ -1,7 +1,19 @@
-$(function () {
+$(function () {    
     var l = abp.localization.getResource('TwoHr');
     var createModal = new abp.ModalManager(abp.appPath + 'Employees/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'Employees/EditModal');
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/my-messaging-hub").build();
+
+    connection.on("ReceiveMessage", function (message) {
+        abp.notify.info(message);
+    });    
+
+    connection.start().then(function () {
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
 
     var dataTable = $('#EmployeesTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
@@ -88,7 +100,15 @@ $(function () {
     );
 
     createModal.onResult(function () {
-        dataTable.ajax.reload();
+        //dataTable.ajax.reload();
+        
+        connection.invoke("SendMessage", $('#Employee_Name').val(), l('WellcomeEmployee'))
+            .then(function () {
+                
+            })
+            .catch(function (err) {
+                return console.error(err.toString());
+            });
     });
 
     editModal.onResult(function () {

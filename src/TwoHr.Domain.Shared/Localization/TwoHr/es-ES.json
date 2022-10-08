@@ -22,6 +22,7 @@
     "AreYouSureToDelete": "¿Está seguro de que desea eliminar este elemento?",
     "EmployeeDeletionConfirmationMessage": "¿Está seguro de que desea eliminar al empleado '{0}'?",
     "SuccessfullyDeleted": "¡Eliminado con éxito!",
+    "WellcomeEmployee": "Bienvenida al nuevo empleado:",
     "Permission:TwoHr": "Recursos Humanos",
     "Permission:Employees": "Gestión de empleados",
     "Permission:Employees.Create": "Creando nuevo empleado",
