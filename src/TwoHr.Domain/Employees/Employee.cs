@@ -21,11 +21,11 @@ namespace TwoHr.Employees
 
         private Employee() { }
 
-        internal Employee(Guid id, string name, bool active, DateTime birthDate, double salary): base(id) 
+        internal Employee(Guid id, string name, bool active, DateTime birthDate, double salary) : base(id)
         {
             ChangeName(name);
             ChangeBirthDate(birthDate);
-            ChangeSalary(salary);            
+            ChangeSalary(salary);
 
             Active = active;
         }
@@ -41,7 +41,7 @@ namespace TwoHr.Employees
 
         public bool BirthDateIsValid(DateTime birthDate)
         {
-            return (birthDate <= DateTime.Now.AddYears((-1)*EmployeeConsts.MinYearsOld) &&
+            return (birthDate <= DateTime.Now.AddYears((-1) * EmployeeConsts.MinYearsOld) &&
                     birthDate > DateTime.MinValue);
         }
 
@@ -70,5 +70,22 @@ namespace TwoHr.Employees
         }
 
         #endregion
+    }
+
+    internal class EmployeeFake
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
+        public bool Active { get; set; }
+
+        public DateTime BirthDate { get; set; }
+
+        public double Salary { get; set; }
+
+        internal Employee ConvertToEmployee()
+        {
+            return new Employee(Id, Name, Active, BirthDate, Salary);
+        }
     }
 }

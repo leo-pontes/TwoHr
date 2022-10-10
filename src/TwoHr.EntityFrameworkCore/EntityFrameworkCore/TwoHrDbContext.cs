@@ -83,7 +83,7 @@ public class TwoHrDbContext :
         {
             b.ToTable(TwoHrConsts.DbTablePrefix + "Employees", TwoHrConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
-            //b.HasIndex(x => x.Name);
+            b.HasIndex(x => x.Name);
         });
     }
 }
