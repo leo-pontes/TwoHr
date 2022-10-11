@@ -31,8 +31,8 @@ namespace TwoHr.Employees
                 var employeeList = new List<Employee>();
 
                 foreach (var item in faker.Generate(3))
-                    employeeList.Add(item.ConvertToEmployee());                                               
-                
+                    employeeList.Add(item.ConvertToEmployee());
+
                 await _employeeRepository.InsertManyAsync(employeeList, autoSave: true);
             }
         }
