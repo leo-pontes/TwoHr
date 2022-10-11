@@ -7,7 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
+using System;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using TwoHr.EntityFrameworkCore;
 using TwoHr.Localization;
 using TwoHr.Permissions;
@@ -29,6 +32,7 @@ using Volo.Abp.Identity.Web;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.OpenIddict;
 using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Web;
@@ -54,7 +58,7 @@ namespace TwoHr.Web;
 public class TwoHrWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
-    {
+    {        
         context.Services.PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
         {
             options.AddAssemblyResource(
@@ -73,9 +77,11 @@ public class TwoHrWebModule : AbpModule
             {
                 options.AddAudiences("TwoHr");
                 options.UseLocalServer();
-                options.UseAspNetCore();
-            });
+                options.UseAspNetCore();                      
+            });            
         });
+
+        PreConfigure<AbpOpenIddictAspNetCoreOptions>(options => { options.AddDevelopmentEncryptionAndSigningCertificate = false; });
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -95,7 +101,7 @@ public class TwoHrWebModule : AbpModule
         ConfigureSwaggerServices(context.Services);       
         ConfigureRazorPages();
         ConfigureAuditLogging();
-    }
+    }    
 
     private void ConfigureRazorPages()
     {
