@@ -7,10 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
-using System;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using TwoHr.EntityFrameworkCore;
 using TwoHr.Localization;
 using TwoHr.Permissions;
@@ -70,7 +67,10 @@ public class TwoHrWebModule : AbpModule
                 typeof(TwoHrWebModule).Assembly
             );
         });
-        
+
+
+        PreConfigure<AbpOpenIddictAspNetCoreOptions>(options => { options.AddDevelopmentEncryptionAndSigningCertificate = false; });
+
         PreConfigure<OpenIddictBuilder>(builder =>
         {
             builder.AddValidation(options =>
@@ -78,10 +78,13 @@ public class TwoHrWebModule : AbpModule
                 options.AddAudiences("TwoHr");
                 options.UseLocalServer();
                 options.UseAspNetCore();                      
-            });            
-        });
-
-        PreConfigure<AbpOpenIddictAspNetCoreOptions>(options => { options.AddDevelopmentEncryptionAndSigningCertificate = false; });
+            }); 
+            builder.AddServer(options =>
+            {
+                options.AddEphemeralEncryptionKey()
+                    .AddEphemeralSigningKey();
+            });
+        });              
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
